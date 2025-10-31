@@ -1,0 +1,493 @@
+1. Principes et objectifs (à garder tout au long du projet)
+
+Respecter l’identité et les valeurs de l’ONG (clarté, empathie, transparence, confiance).
+
+Prioriser l’utilisateur : facilité pour donateurs, bénéficiaires, partenaires, bénévoles.
+
+Sécurité et confidentialité des données personnelles.
+
+Accessibilité (WCAG AA) et responsive mobile-first.
+
+Performance (pages rapides, images optimisées, CDN).
+
+Facilité de maintenance par des non-techniques (rédacteur/administrateur).
+
+2. Phases de la refonte (ordre recommandé — sans estimation temporelle)
+
+Chaque phase contient livrables, tâches et critères d’acceptation.
+
+Phase A — Discovery & Audit (préparation)
+
+Livrables : rapport d’audit (contenu, technique, sécurité), personas, carte des parties prenantes, objectifs fonctionnels prioritaires.
+Tâches :
+
+Réunion(s) avec stakeholders (mission, audience, KPIs, limites budgétaires).
+
+Audit du site existant : contenu (pages, images, médias), analytics, formulaires, SEO de base.
+
+Audit technique : hébergement, CMS, versions logicielles, certificats SSL, erreur 403 (vérifier pourquoi), sauvegardes existantes.
+
+Audit sécurité superficiel (headers visibles, robots.txt, sitemap) et posture RGPD/privacy baseline.
+
+Recensement des intégrations nécessaires : paiements (dons), newsletter, CRM, systèmes partenaires, maps, téléphones locaux.
+Critères d’acceptation : document signé listant fonctionnalités minimales (MVP), inventaire contenu, liste d’accès (hébergement, CMS, analytics).
+
+Phase B — Architecture de l’information & contenu
+
+Livrables : sitemap final, modèle de contenu (content types), plan de migration des contenus.
+Tâches :
+
+Définir pages principales (ex. Accueil, À propos, Programmes, Actualités, Ressources / Publications, Faire un don, Contact, Partenaires, Rapports annuels, Espace bénévole).
+
+Définir modèles de contenu (article, événement, projet, publication PDF, rapport).
+
+Plan migration : mapping des URLs existantes → nouvelles URLs (préserver SEO, créer redirections 301).
+Critères : sitemap validé, mapping URLs et redirections préparées.
+
+Phase C — UX / Wireframes & prototypes
+
+Livrables : wireframes basse fidélité (mobile + desktop), prototypes cliquables (flux clés : don, contact, lire article).
+Tâches :
+
+Conception centrée utilisateur : parcours donateur, parcours visiteur cherchant aide, parcours partenaire.
+
+Prototypage des composants critiques : header/footer, menu, formulaire don, formulaire contact, pages d’articles, page projet.
+
+Tests utilisateurs rapides (3–5 personnes) pour valider flows critiques.
+Critères : prototypes validés et retours synthétisés.
+
+Phase D — UI Design & Design System
+
+Livrables : UI Kit / design system (couleurs, typographie, composants, variables CSS), maquettes haute-fidélité (desktop/mobile).
+Tâches :
+
+Intégrer valeurs de l’ONG dans la charte graphique (ton, images, iconographie, microcopy empathique).
+
+Définir composants réutilisables (cartes projets, boutons CTA, formulaires, modal, badges confiance).
+
+Préparer assets optimisés (SVG pour icônes, images responsive, placeholders).
+
+Préparer instructions d’accessibilité (contrastes, labels, focus states).
+Critères : UI Kit livré + maquettes validées.
+Note : tu fourniras ton template — j’intègre ton template dans ce design system.
+
+Phase E — Frontend & Intégration (dev)
+
+Livrables : code frontend, composants réutilisables, build optimisé, storybook (optionnel).
+Tâches :
+
+Choix technique (voir section « Reco stack » ci-dessous).
+
+Intégration responsive du design system + composants.
+
+Implementation des templates de contenu (articles, pages projets, formulaires).
+
+SEO technique (balises meta, Open Graph, sitemap.xml, robots, structured data pour articles/organisation).
+
+Lazy-load images, responsive srcset, critical CSS, code-splitting.
+Critères : pages passent audit Lighthouse (desktop & mobile) avec scores ciblés, validation responsive sur devices clés.
+
+Phase F — Backend, CMS & Intégrations
+
+Livrables : CMS configuré, API si headless, intégrations opérationnelles (paiement, email, analytics).
+Tâches :
+
+Configurer CMS (ex. WordPress avec Gutenberg + ACF, ou Headless CMS: Strapi/NetlifyCMS selon besoins).
+
+Système de gestion des utilisateurs / rôles (admin, éditeur, contributeur).
+
+Intégration paiements pour dons (Stripe/PayPal + intégration mobile money locale si nécessaire).
+
+Configurer envoi d’emails transactionnels & newsletter (Sendinblue, Mailchimp, ou service SMTP).
+
+Mise en place sauvegardes automatiques et versionning contenu.
+Critères : CMS utilisable par éditeurs non-techniques, paiement test en sandbox validé, emails envoyés correctement.
+
+Phase G — Sécurité & durcissement
+
+Livrables : checklist sécurité, mise en place WAF, scans & rapport.
+Tâches :
+
+Forcer HTTPS, vérifier certificat TLS et config (HSTS).
+
+Ajouter en-têtes de sécurité (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy).
+
+Mettre en place WAF ou règles basiques (ex. Cloudflare).
+
+Activer 2FA pour comptes admin, restreindre accès admin (IP allowlist si possible).
+
+Vérification dépendances / correctifs (SCA), config file permissions, backups hors site.
+
+Faire un scan dynamique (OWASP ZAP/Nikto) et un scan CMS (WPScan si WP).
+Critères : résultats de scans corrigés ou plan d’action priorisé.
+
+Phase H — Tests & QA
+
+Livrables : rapports QA (fonctionnel, régresion, accessibilité, performance), plan de correction.
+Tâches :
+
+Tests fonctionnels (CTAs, formulaires, workflows de don).
+
+Tests cross-browser and cross-device.
+
+Tests d’accessibilité (axe/pa11y) et corrections.
+
+Tests de montée en charge légers (smoke test).
+Critères : pass pour checklist de release.
+
+Phase I — Déploiement & Launch
+
+Livrables : procédure de déploiement, rollback plan, DNS et HTTPS validés.
+Tâches :
+
+Pipeline CI/CD configuré (build → staging → production).
+
+Switch DNS, vérifier certificats, activer CDN, monitor uptime.
+
+Mettre en place analytics (Google Analytics/Matomo) et suivi conversions (don).
+Critères : site en prod, monitoring en place, redirections 301 actives, tests smoke passés.
+
+Phase J — Maintenance & gouvernance post-lancement
+
+Livrables : plan de maintenance, manuel admin, calendrier de backups, SLA de sécurité.
+Tâches :
+
+Plan de mise à jour régulière du CMS et plugins.
+
+Monitoring (uptime, erreurs 5xx, logs), alertes de sécurité.
+
+Rapports périodiques (trafic, conversions, performances).
+
+Formation des éditeurs (session + documentation).
+Critères : admin formé, doc remise, plan d’action pour incidents.
+
+3. Recommandations techniques (stack & hébergement)
+
+Je propose d’exposer deux options — choisis selon compétence d’administration et budget :
+
+Option A — WordPress classique (recommandé si équipe non-technique)
+
+Pourquoi : interface familière, gestion simple des contenus, large écosystème (plugins pour dons, formulaires, SEO).
+
+Bonnes pratiques : thème enfant, ACF/Gutenberg pour blocs, limiter plugins, utiliser plugin de sécurité + backups, hébergement managé (ex. Kinsta/Cloudways/OVH-managed).
+
+Idéal si tu veux que l’équipe éditoriale puisse modifier sans dev.
+
+Option B — Site statique / headless (Next.js / Gatsby + headless CMS)
+
+Pourquoi : performances très élevées, sécurité renforcée (pas de PHP exposé), meilleure scalabilité.
+
+Inconvénients : coût de dev initial plus élevé, procédures de build/deploy, apprentissage pour l’édition.
+
+Bon pour trafics élevés et besoin strict de performance.
+
+Hébergement / CDN : Netlify / Vercel (headless/static) ou DigitalOcean / AWS Lightsail pour budget contrôle, front + Cloudflare CDN & WAF.
+Base de données & backups : sauvegardes quotidiennes, snapshots hors site.
+
+4. UX & contenu : points concrets à implémenter
+
+Page d’accueil : message clair (mission + CTA don / aide) visible sans scroll.
+
+Don simplifié : bouton “Faire un don” toujours visible, formulaire en 2 étapes, option montant récurrent, preuve de sécurité (badge TLS, logos partenaires).
+
+Storytelling : pages projets avec photos, résultats chiffrés, témoignages.
+
+Transparence : page “Rapports & Finances” téléchargeables (PDF).
+
+Multilingue (si besoin) — garder URL distinctes (ex: /fr/ /en/).
+
+Barre d’urgence/contact mis en évidence pour services de santé.
+
+Microcopy empathique et CTA orientés vers l’objectif (don, contacter, s’inscrire).
+
+5. Sécurité : checklist actionnable (priorité haute)
+
+Résoudre l’erreur 403 et comprendre si c’est WAF / htaccess / permissions.
+
+Forcer HTTPS + config TLS correcte + HSTS.
+
+Mettre en place en-têtes de sécurité (CSP, X-Frame-Options, etc.).
+
+WAF / rate limiting / protection brute force.
+
+2FA pour comptes admin + restereindre accès WP-Admin.
+
+Scanner régulièrement (SCA, dépendances) et appliquer patchs.
+
+Backups automatisés hors site + test de restauration.
+
+Chiffrement des données sensibles en DB au repos si nécessaire.
+
+Politique de mots de passe, least privilege, journalisation.
+
+6. Performance : checklist actionnable
+
+Images WebP, responsive srcset, lazy-loading.
+
+Utiliser CDN (Cloudflare/fastly).
+
+Gzip/Brotli compression, minification CSS/JS.
+
+Critical CSS inlining, defer non-critical JS.
+
+Cache HTTP + cache purging stratégie.
+
+Pré-render / server-side rendering pour pages publiques.
+
+Audit Lighthouse (mobile + desktop) et correction des “opportunities” / “diagnostics”.
+
+7. Accessibilité & conformité
+
+Cible WCAG 2.1 AA.
+
+Labels explicites, alt pour images, focus order, keyboard navigation.
+
+Tester avec axe, NVDA / VoiceOver.
+
+Politique de confidentialité + consentement cookies (cookie banner) si nécessaire.
+
+8. SEO & analytics
+
+Redirections 301 pour URLs modifiées.
+
+Balises meta optimisées + structured data (Organization, BreadcrumbList, Article).
+
+Robots.txt + sitemap.xml.
+
+Setup analytics (GA4/Matomo), et tracking conversions (dons).
+
+Outils Search Console / Bing Webmaster.
+
+9. Gouvernance & formation
+
+Rôles & responsabilités (qui publie, qui valide, qui admin).
+
+Manuel d’administration simple (écrire/éditer article, uploader média, vérifier formulaire).
+
+Plan de sauvegardes & tests réguliers (extraction trimestrielle).
+
+SLA pour correctifs urgents (sécurité / downtime).
+
+10. Livrables finaux & critères d’acceptation (handoff)
+
+Code source (repo git), pipeline CI/CD documenté.
+
+Accès admin + credentials provisoires changés.
+
+Documentation technique + guide éditeur.
+
+Rapport de tests (QA, perf, sécurité, accessibilité) avec tickets corrigés.
+
+Plan de maintenance et calendrier des mises à jour.
+
+Liste de redirections 301 appliquées et vérifiées.
+
+Sauvegardes initiales testées.
+
+11. Équipe recommandée / rôles (pour que tu saches qui faire intervenir)
+
+Chef de projet / product owner (toi ou mandataire).
+
+UX / UI designer (qui prendra ton template pour finaliser).
+
+Développeur frontend (HTML/CSS/JS/React/Next ou WP theming).
+
+Développeur backend / intégrateur CMS.
+
+DevOps / sysadmin (hébergement, CI/CD, backups).
+
+Testeur QA / accessibilité.
+
+Référent sécurité (audit & remediation).
+
+12. Prochaines étapes concrètes (ce que j’ai besoin de toi maintenant)
+
+Ton template (maquette / Figma / HTML) pour l’intégration UI.
+
+Accès & infos (si possible) : hébergement, FTP/SFTP, accès CMS (ou snapshot), accès analytics (lecture), contact hébergeur.
+
+Priorité des fonctionnalités : par ex. (1) Faire un don, (2) News/Actualités, (3) Rapports PDF, (4) Multilingue.
+
+Logos, photos haute-résolution, texte institutionnel, rapport d’activité si existant.
+
+13. Extras utiles (outils & checks à automatiser)
+
+CI: GitHub Actions / GitLab CI.
+
+Tests automatiques: Lighthouse CI, Snyk (dépendances), WPScan (si WP).
+
+Monitoring: UptimeRobot, Sentry (erreurs JS/backend).
+
+Backup: stockage S3 / espace object, snapshots réguliers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) Observations rapides du template (points à garder / adapter)
+
+Hero large avec message clair + CTA(s) répétés — idéal pour afficher la mission d’Arcad Santé Plus et un bouton Faire un don / Demander de l’aide. 
+monkspay.framer.website
+
+Sections « Features » / « How it works » / « Testimonials » -> excellentes pour présenter programmes, processus d’aide, témoignages de bénéficiaires. 
+monkspay.framer.website
+
+Bloc « Pricing » (abonnements) : on remplace par “Transparence des usages des dons” (paliers de don et exemples d’impact). 
+monkspay.framer.website
+
+Design minimal, typographie large, beaucoup d’espaces blancs — parfait pour confiance & lisibilité ; il faudra adapter couleurs / images à l’identité de l’ONG. 
+monkspay.framer.website
+
+2) Mapping template → site ONG (structure des pages)
+
+Hero (template) → Page d’accueil ONG : mission, chiffres clés (bénéficiaires), CTA don / urgence.
+
+Features → Nos Programmes (chaque « feature » = un projet/programme avec CTA “En savoir + / S’impliquer”).
+
+How it works (3 étapes) → Comment nous aidons / comment demander de l’aide (processus simple en 3 étapes).
+
+Security → Confiance & transparence : sécurité des dons, confidentialité des données, conformité RGPD.
+
+Pricing → Transparence financière (paliers de donation & exemples concrets d’utilisation).
+
+Testimonials → Témoignages bénéficiaires / partenaires.
+
+Footer → Contacts, hotline d’urgence, partenaires, rapports annuels, mentions légales / politique de confidentialité.
+
+3) UI / Design — adaptations concrètes à faire
+
+Palette couleurs : remplacer couleurs “fintech” par couleurs chaleureuses et rassurantes (ex. bleu profond + accent vert / orange doux). Fournir 3 propositions de palette.
+
+Typographie : garder la lisibilité (taille large), définir variantes (H1, H2, body, caption).
+
+Iconographie : icônes humanisées (formes arrondies), remplacer icônes financières par icônes santé / solidarité.
+
+Images : photos authentiques (patients, équipes, terrains). Préparer placeholders et règles d’édition (format, crop, alt text).
+
+CTA fixes : bouton “Faire un don” sticky (toujours visible) + bouton “Besoin d’aide” sur mobile.
+
+Composants réutilisables : Card Projet, Hero, Banner Rapport annuel, Carousel Témoignages, Footer riche.
+
+Design System : couleurs CSS variables, tokens typographiques, spacing, états (focus, hover) — livrable Figma + fichier style (CSS/Tailwind config).
+
+4) UX / parcours utilisateurs (flow prioritaires)
+
+Priorité aux 3 flows :
+
+Faire un don (Guest flow rapide, 2 étapes, preuve & reçu) — possibilité don ponctuel / récurrent / par mobile money.
+
+Demander de l’aide / orientation (formulaire simplifié + contact direct / hotline).
+
+Lire & Télécharger rapports / preuves d’impact (PDF optimisés, tracks downloads).
+Pour chaque flow : wireframes mobile-first, validation accessibilité, microcopy empathique.
+
+5) Technique & stack recommandé (intégration du template)
+
+Options — je recommande WordPress + thème custom si l’équipe a besoin d’un back-office simple ; sinon Next.js (statique / headless) pour performance maximale.
+
+Recommandation pratique (ONG) :
+
+WordPress (thème custom) : convertir le template en thème enfant (ou theme kit) -> facile pour les éditeurs ; utiliser ACF / blocs Gutenberg.
+
+Si priorité perf & sécurité : Next.js + headless CMS (Strapi/NetlifyCMS) + déploiement sur Vercel/Netlify + CDN Cloudflare.
+
+Outils complémentaires : Stripe + intégration Mobile Money (MTN/Orange Money) pour dons locaux, Sendinblue/Mailjet pour emails, Google Analytics / Matomo pour analytics.
+
+Build : automatisation CI (GitHub Actions) → staging → prod.
+
+6) Paiements & dons — intégration adaptée au template
+
+Boutons CTA Monetization : page don + modal rapide (two-step).
+
+Moyens : Stripe (cartes), PayPal, Mobile Money local (Orange Money / MTN Money) — intégration via provider local ou prestataire (Bridge API).
+
+Sécurité paiements : PCI-DSS (si traitement), redirection vers provider sécurisé, reçus par email, pages HTTPS.
+
+UX don : pré-remplir montants populaires, montant libre, option récurrente, preuve d’impact (ex : “50 € = kit de soins pour 10 personnes”).
+
+7) Accessibilité & Localisation
+
+Mobile-first responsive (le template est responsive — s’assurer des points d’accessibilité). 
+monkspay.framer.website
+
+Objectif WCAG 2.1 AA : contrastes, labels, focus visibles, alt text pour images.
+
+Multilingue si nécessaire (ex: FR + local language) avec URLs distinctes (/fr/ /en/ /bm/).
+
+8) Performance & sécurité (spécifique au template)
+
+Optimiser images (WebP, srcset), lazy-load, inlining critical CSS.
+
+Minifier & chunk JS, supprimer scripts inutiles du template non utilisés.
+
+Serve via CDN + activer Brotli/Gzip.
+
+Forcer HTTPS + HSTS, en-têtes de sécurité (CSP, X-Frame-Options, nosniff).
+
+WAF (Cloudflare) et protection brute-force admin.
+
+Scan CMS (si WP : WPScan), test OWASP ZAP avant mise en prod.
+
+9) SEO et migration d’URLs (si site existant)
+
+Garder mapping des URLs existantes → nouvelles URLs (301).
+
+Mettre structured data (Organization, BreadcrumbList, Article).
+
+Créer sitemap.xml dynamique + robots.txt.
+
+Mettre en place suivi conversions (dons).
+
+10) Checklist d’implémentation (priorités — à appliquer AU DÉMARRAGE)
+
+Adapter la charte couleurs & typographie (Figma, tokens CSS).
+
+Créer design system + composants basés sur le template.
+
+Wireframes & prototypes flows don / aide / contact.
+
+Développer page d’accueil et components principaux (Hero, Cards, Footer).
+
+Intégration CMS & modèle de contenu (programmes, actualités, rapports).
+
+Intégrer paiement (sandbox) et tester dons (3 méthodes).
+
+Tests accessibilité + performance (Lighthouse) et corrections.
+
+Backup & sécurité (WAF, headers, 2FA).
+
+Migration contenu & SEO (301s).
+
+Lancement & monitoring.
+
+11) Livrables que je peux te fournir ensuite (si tu veux que je m’occupe)
+
+Design System complet (Figma + assets exportés).
+
+Maquette homepage & 3 templates (programme, article, page don).
+
+Prototype cliquable mobile + desktop.
+
+Conversion template → thème WordPress ou site Next.js + repo Git.
+
+Guide admin & checklist de maintenance.
+
+12) Ce que j’ai besoin de toi maintenant pour démarrer l’adaptation
+
+Logo haute résolution, palette si existante, photos (ou budget photo).
+
+Contenus importants : message mission court (1 phrase), 3 programmes principaux, textes pour la page dons (ex. paliers).
+
+Accès hébergement / CMS (si tu veux que j’intègre directement) ou préférence d’hébergement.
+
+Méthodes de paiement souhaitées (Stripe / PayPal / Mobile Money + comptes sandbox).
