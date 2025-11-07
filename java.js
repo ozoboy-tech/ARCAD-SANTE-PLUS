@@ -370,3 +370,224 @@ document.querySelectorAll('.dropdown-toggle').forEach(btn => {
     onScroll();
   }
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Partners marquee helper: set duration from data-speed and ensure seamless loop if needed
+(function () {
+  const marqueeWrappers = document.querySelectorAll('.partners-marquee');
+  if (!marqueeWrappers.length) return;
+
+  // If user prefers reduced motion, do nothing (CSS covers it)
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  marqueeWrappers.forEach(wrapper => {
+    const track = wrapper.querySelector('.marquee-track');
+    if (!track) return;
+
+    // read speed (seconds) from data attribute
+    const speedSec = Number(wrapper.getAttribute('data-speed')) || 22;
+    // set CSS variable (duration)
+    wrapper.style.setProperty('--marquee-duration', `${speedSec}s`);
+
+    // If track length is small, duplicate content so the loop is smooth:
+    // only duplicate if not already duplicated (check data attribute)
+    if (!track.dataset.duplicated) {
+      // duplicate inner nodes
+      track.innerHTML += track.innerHTML;
+      track.dataset.duplicated = 'true';
+    }
+
+    // Pause/resume on hover and focus for accessibility
+    if (!reduced) {
+      wrapper.addEventListener('mouseenter', () => {
+        track.style.animationPlayState = 'paused';
+      });
+      wrapper.addEventListener('mouseleave', () => {
+        track.style.animationPlayState = '';
+      });
+      // also pause when any child gets focus (keyboard nav)
+      track.addEventListener('focusin', () => { track.style.animationPlayState = 'paused'; });
+      track.addEventListener('focusout', () => { track.style.animationPlayState = ''; });
+    } else {
+      // if reduced motion, ensure animation is disabled
+      track.style.animation = 'none';
+    }
+  });
+})();
+
+
+
+
+
+
+
+
+/* footer-enhance.js - reveal columns in stagger (0.5s) + modal + backToTop */
+(function () {
+  const root = document.documentElement;
+  const footer = document.querySelector('.modern-footer') || document.querySelector('.transparent-footer');
+  if (!footer) return;
+
+  // accessibility: if user prefers reduced motion, do not animate stagger
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // reveal columns with 500ms stagger
+  const cols = Array.from(footer.querySelectorAll('.footer-grid .f-col'));
+  if (cols.length) {
+    if (reduce) {
+      cols.forEach(c => c.classList.add('visible'));
+    } else {
+      cols.forEach((col, i) => {
+        setTimeout(() => col.classList.add('visible'), i * 500); // 500ms between columns
+      });
+    }
+  }
+
+  // back to top button
+  const backToTop = footer.querySelector('.back-to-top');
+  if (backToTop) {
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // footer contact modal open/close (if present)
+  const openBtn = document.getElementById('openContactModal');
+  const modal = document.getElementById('footerContactModal');
+  const modalClose = document.getElementById('footerModalClose');
+  if (openBtn && modal) {
+    openBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(()=> modal.querySelector('input, textarea, button')?.focus(), 120);
+    });
+    [modalClose, modal].forEach(el => {
+      if (!el) return;
+      el.addEventListener('click', (e) => {
+        // clicking overlay (modal) closes only if target is overlay
+        if (e.target === modal || e.target === modalClose) {
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          openBtn.focus();
+        }
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+    });
+  }
+
+})();
+
+
+
+
+
+
+
+
+
+
+
+// Actions cards: persistent active + reveal CTA + in-view entrance
+(function () {
+  const cards = Array.from(document.querySelectorAll('.action-card'));
+  if (!cards.length) return;
+
+  // helper: remove active from all
+  function clearActive() {
+    cards.forEach(c => { c.classList.remove('active'); c.classList.remove('is-hover'); });
+  }
+
+  // set active card
+  function setActive(card) {
+    if (!card) return;
+    cards.forEach(c => {
+      if (c === card) c.classList.add('active');
+      else c.classList.remove('active');
+      c.classList.remove('is-hover'); // clear transient hover state
+    });
+  }
+
+  // transient hover class (visual micro-lift)
+  cards.forEach(card => {
+    // mouseenter: mark transient and setActive immediately
+    card.addEventListener('mouseenter', () => {
+      // set transient hover for micro-interaction
+      card.classList.add('is-hover');
+      // set as persistent active
+      setActive(card);
+    });
+
+    // keyboard focus should also set active
+    card.addEventListener('focusin', () => setActive(card));
+
+    // touch on mobile: toggle active on first tap
+    card.addEventListener('touchstart', (ev) => {
+      if (!card.classList.contains('active')) {
+        ev.preventDefault(); // prevent immediate navigation on small touch devices
+        setActive(card);
+      } // if already active, let links work
+    });
+
+    // click on card not on CTA should set active (and not follow link)
+    card.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.closest('.card-cta')) return; // clicking CTA will navigate
+      // if card clicked and was active -> do nothing (could navigate if desired)
+      if (!card.classList.contains('active')) {
+        e.preventDefault();
+        setActive(card);
+      }
+    });
+  });
+
+  // click outside clears active
+  document.addEventListener('click', (e) => {
+    // if clicked inside a card or CTA, do nothing
+    if (e.target.closest('.action-card') || e.target.closest('.card-cta')) return;
+    clearActive();
+  });
+
+  // ESC clears active
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') clearActive();
+  });
+
+  // IntersectionObserver to reveal cards into view with slight stagger
+  try {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.classList.add('in-view');
+          // stagger via inline transitionDelay
+          const index = cards.indexOf(el);
+          el.style.transitionDelay = (index * 80) + 'ms';
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    cards.forEach(c => io.observe(c));
+  } catch (err) {
+    // no-op if IntersectionObserver not supported
+    cards.forEach(c => c.classList.add('in-view'));
+  }
+})();

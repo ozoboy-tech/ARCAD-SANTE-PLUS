@@ -30,7 +30,7 @@ $current_page = 'home';
       <!-- navigation desktop -->
       <nav class="main-nav" role="navigation" aria-label="Navigation principale">
   <ul class="nav-list">
-    <li class="nav-item"><a class="nav-link" href="#actualites">Actualités</a></li>
+    <li class="nav-item"><a class="nav-link" href="sections/Actualités.php">Actualités</a></li>
 
     <li class="nav-item nav-dropdown">
       <button class="dropdown-toggle" aria-expanded="false" aria-controls="menu-nos-actions" aria-haspopup="true">
@@ -39,14 +39,14 @@ $current_page = 'home';
       </button>
 
       <ul id="menu-nos-actions" class="dropdown-menu" role="menu" aria-label="Nos Actions">
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#sites-services">Nos sites et nos services</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#renforcement">Renforcement de capacités</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#recherche">Recherche opérationnelle</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#plaidoyer">Plaidoyer</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/nos_sites_et_services.php">Nos sites et nos services</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Renforcement_de_capacités.php">Renforcement de capacités</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Recherche_opérationnelle.php">Recherche opérationnelle</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Plaidoyer.php">Plaidoyer</a></li>
       </ul>
     </li>
 
-    <li class="nav-item"><a class="nav-link" href="#recrutement">Recrutement</a></li>
+    <li class="nav-item"><a class="nav-link" href="Recrutement.php">Recrutement</a></li>
 
     <li class="nav-item nav-dropdown">
       <button class="dropdown-toggle" aria-expanded="false" aria-controls="menu-mediatheque" aria-haspopup="true">
@@ -55,12 +55,12 @@ $current_page = 'home';
       </button>
 
       <ul id="menu-mediatheque" class="dropdown-menu" role="menu" aria-label="Médiathèque">
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#phototheque">Photothèque</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="#videotheque">Vidéothèque</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Médiathèque/Photothèque.php">Photothèque</a></li>
+        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Médiathèque/Vidéothèque.php">Vidéothèque</a></li>
       </ul>
     </li>
 
-    <li class="nav-item"><a class="nav-link" href="#contact">Nous joindre</a></li>
+    <li class="nav-item"><a class="nav-link" href="sections/nous_joindre.php">Nous joindre</a></li>
   </ul>
 </nav>
 
@@ -135,13 +135,16 @@ $current_page = 'home';
   <!-- features: petites tuiles alignées -->
   <div class="hero-features" aria-hidden="false">
     <div class="feat">
-      <!-- simple SVG icon -->
-      <svg class="feat-ic" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="action-ic" aria-hidden="true">
+          <img src="images/icon/préventions.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+          </div>
       <div class="feat-text"><strong>Prévention</strong><span>Campagnes ciblées</span></div>
     </div>
 
     <div class="feat">
-      <svg class="feat-ic" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="action-ic" aria-hidden="true">
+          <img src="images/icon/dépistage.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+          </div>
       <div class="feat-text"><strong>Dépistage</strong><span>Accès simplifié</span></div>
     </div>
 
@@ -265,8 +268,19 @@ $current_page = 'home';
     <div id="template-gouvernance" class="modal-template" hidden>
       <h2>Gouvernance</h2>
       <p>
-        <!-- Remplace par l'organigramme / description -->
-        La gouvernance est assurée par un conseil d'administration composé de...
+      Structure associative régie par la loi 04-038 AN/RM du 05 aout 2004 relative aux associations, ARCAD SANTE PLUS est reconnue d’utilité publique par le décret N°2016-0270/P-RM du 29 avril 2016.
+
+Comme toute organisation non gouvernementale moderne, ARCAD SANTE PLUS s’appuie sur une gouvernance à trois entités :
+
+- Une Assemblée Générale (AG) : Organe suprême
+
+- Un Conseil d’Administration (CA) : Organe de décision
+
+- Une Direction : Organe d’Exécution
+
+L’Assemblée générale se réunit une fois par an et le Conseil d’administration tous les trimestres.
+
+La direction exécutive rend compte annuellement à l’Assemblée générale et périodiquement lors de tous les conseils d’administration. Le président du Conseil d’administration est très impliqué dans les activités de la direction exécutive.
       </p>
     </div>
 
@@ -434,23 +448,304 @@ $current_page = 'home';
 
 
     <!-- placeholders sections -->
-    <section id="nos-actions" class="section container"><h2>Nos Actions</h2></section>
-    <section id="actualites" class="section container"><h2>Actualités</h2></section>
-    <section id="mediatheque" class="section container"><h2>Médiathèque</h2></section>
-    <section id="contact" class="section container"><h2>Nous joindre</h2></section>
-  </main>
+     <!-- PARTENAIRES / logos défilants (placer sous .hero-ctas et avant #nos-actions) -->
+<section class="partners" aria-label="Nos partenaires">
+  <div class="container partners-wrap">
+    <div class="partners-marquee" data-speed="22" aria-hidden="false">
+      <div class="marquee-track" role="list">
+        <!-- Remplace les src ci-dessous par les chemins réels de tes logos -->
+        <div class="partner" role="listitem"><img src="images/part/coalition_international_sida.webp" alt="coalition_international_sida"></div>
+        <div class="partner" role="listitem"><img src="images/part/AFD (Agence française de developpement).webp" alt="AFD (Agence française de developpement)"></div>
+        <div class="partner" role="listitem"><img src="images/part/AIDES.webp" alt="AIDES"></div>
+        <div class="partner" role="listitem"><img src="images/part/HCNLS.png" alt="HCNLS"></div>
+        <div class="partner" role="listitem"><img src="images/part/Le fond mondial.webp" alt="Le fond mondial"></div>
+        <div class="partner" role="listitem"><img src="images/part/l'initiative sida tuberculose paludisme .webp" alt="l'initiative sida tuberculose paludisme"></div>
+        <div class="partner" role="listitem"><img src="images/part/Ministere de la santé comité sectorielle de lute contre le sida.png" alt="Ministere de la santé comité sectorielle de lute contre le sida"></div>
+        <div class="partner" role="listitem"><img src="images/part/ONUSIDA.png" alt="ONUSIDA"></div>
+        <div class="partner" role="listitem"><img src="images/part/PNUD.webp" alt="PNUD"></div>
+        <div class="partner" role="listitem"><img src="images/part/republique du mali.webp" alt="republique du mali"></div>
+        <div class="partner" role="listitem"><img src="images/part/Sidaction.webp" alt="Sidaction"></div>
+        <div class="partner" role="listitem"><img src="images/part/Unicef.webp" alt="Unicef"></div>
+        <div class="partner" role="listitem"><img src="images/part/USAID.webp" alt="HUSAID"></div>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>&copy; <?= date('Y') ?> Arcad Santé Plus — Tous droits réservés</div>
-      <div class="partners-logos">
-        <img src="images/partners/partner1.svg" alt="Partenaire 1">
-        <img src="images/partners/partner2.svg" alt="Partenaire 2">
-        <img src="images/partners/partner3.svg" alt="Partenaire 3">
+        <!-- DUPLIQUÉ POUR BOUCLE SANS COUTURE (le JS peut dupliquer si tu préfères) -->
+        <div class="partner" role="listitem"><img src="images/part/coalition_international_sida.webp" alt="coalition_international_sida"></div>
+        <div class="partner" role="listitem"><img src="images/part/AFD (Agence française de developpement).webp" alt="AFD (Agence française de developpement)"></div>
+        <div class="partner" role="listitem"><img src="images/part/AIDES.webp" alt="AIDES"></div>
+        <div class="partner" role="listitem"><img src="images/part/HCNLS.png" alt="HCNLS"></div>
+        <div class="partner" role="listitem"><img src="images/part/Le fond mondial.webp" alt="Le fond mondial"></div>
+        <div class="partner" role="listitem"><img src="images/part/l'initiative sida tuberculose paludisme .webp" alt="l'initiative sida tuberculose paludisme"></div>
+        <div class="partner" role="listitem"><img src="images/part/Ministere de la santé comité sectorielle de lute contre le sida.png" alt="Ministere de la santé comité sectorielle de lute contre le sida"></div>
+        <div class="partner" role="listitem"><img src="images/part/ONUSIDA.png" alt="ONUSIDA"></div>
+        <div class="partner" role="listitem"><img src="images/part/PNUD.webp" alt="PNUD"></div>
+        <div class="partner" role="listitem"><img src="images/part/republique du mali.webp" alt="republique du mali"></div>
+        <div class="partner" role="listitem"><img src="images/part/Sidaction.webp" alt="Sidaction"></div>
+        <div class="partner" role="listitem"><img src="images/part/Unicef.webp" alt="Unicef"></div>
+        <div class="partner" role="listitem"><img src="images/part/USAID.webp" alt="HUSAID"></div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+<section id="nos-actions" class="section container actions-section" aria-labelledby="nos-actions-title">
+  <header class="actions-header">
+    <h2 id="nos-actions-title">Nos Actions</h2>
+    <p class="actions-lead">
+      ARCAD Santé Plus coordonne des interventions structurées et axées sur l'impact.
+      La rubrique principale <strong>Prévention & soins</strong> regroupe nos actions terrain — se déclinant en sous-rubriques opérationnelles présentées ci-dessous.
+    </p>
+  </header>
+
+  <div class="actions-main">
+    <!-- Carte principale (rubrique) -->
+    <article class="main-card action-card" role="article" aria-labelledby="act-prevention-main">
+      <div class="main-card-inner">
+        <div class="action-ic" aria-hidden="true">
+        <img src="images/icon/soins.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+        </div>
+
+        <div class="action-body">
+          <h3 id="act-prevention-main">Prévention & soins</h3>
+          <p class="action-desc">
+            Campagnes de prévention, dépistage, prise en charge et services essentiels (soins primaires, maternité, vaccinations).
+            Cette rubrique englobe nos implantations locales — <strong>Nos sites et nos services</strong> — ainsi que les actions de renforcement, recherche et plaidoyer nécessaires pour la durabilité.
+          </p>
+        </div>
+      </div>
+
+      <div class="main-card-cta">
+        <a class="card-cta btn btn-primary" href="/sections/Nos_actions/prevention.php" aria-label="En savoir plus sur Prévention & soins">En savoir plus</a>
+      </div>
+    </article>
+
+    <!-- Sous-rubriques : grille de cards -->
+    <div class="sub-grid" role="list" aria-label="Sous-rubriques Prévention & soins">
+      <!-- Sub 1 -->
+        <article class="action-card sub-card" role="listitem" aria-labelledby="sub-sites" tabindex="0" data-topic="sites-services">
+          <div class="action-ic" aria-hidden="true">
+          <img src="images/icon/sites_services.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+          </div>
+          <div class="action-body">
+            <h4 id="sub-sites">Nos sites & nos services</h4>
+            <p class="action-desc">Centres de santé, cliniques mobiles et points de services locaux — accès aux soins de proximité.</p>
+          </div>
+          <div class="card-cta-wrap">
+            <a class="card-cta btn btn-primary" href="sections/Nos_actions/nos_sites_et_services.php" aria-label="En savoir plus sur Nos sites et nos services">En savoir plus</a>
+          </div>
+        </article>
+
+      <!-- Sub 2 -->
+      <article class="action-card sub-card" role="listitem" aria-labelledby="sub-renforcement" tabindex="0" data-topic="renforcement">
+        <div class="action-ic" aria-hidden="true">
+        <img src="images/icon/renforcements.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+        </div>
+        <div class="action-body">
+          <h4 id="sub-renforcement">Renforcement de capacités</h4>
+          <p class="action-desc">Formations, coaching et outils pour améliorer les compétences des équipes locales et la qualité des soins.</p>
+        </div>
+        <div class="card-cta-wrap">
+          <a class="card-cta btn btn-primary" href="sections/Nos_actions/Renforcement_de_capacités.php" aria-label="En savoir plus sur Renforcement de capacités">En savoir plus</a>
+        </div>
+      </article>
+
+      <!-- Sub 3 -->
+      <article class="action-card sub-card" role="listitem" aria-labelledby="sub-recherche" tabindex="0" data-topic="recherche">
+        <div class="action-ic" aria-hidden="true">
+        <img src="images/icon/recherche.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+        </div>
+        <div class="action-body">
+          <h4 id="sub-recherche">Recherche opérationnelle</h4>
+          <p class="action-desc">Études, évaluation d'interventions et production de preuves pour optimiser nos programmes.</p>
+        </div>
+        <div class="card-cta-wrap">
+          <a class="card-cta btn btn-primary" href="sections/Nos_actions/Recherche_opérationnelle.php" aria-label="En savoir plus sur Recherche opérationnelle">En savoir plus</a>
+        </div>
+      </article>
+
+      <!-- Sub 4 -->
+      <article class="action-card sub-card" role="listitem" aria-labelledby="sub-plaidoyer" tabindex="0" data-topic="plaidoyer">
+        <div class="action-ic" aria-hidden="true">
+        <img src="images/icon/plaidoyer.svg" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+        </div>
+        <div class="action-body">
+          <h4 id="sub-plaidoyer">Plaidoyer</h4>
+          <p class="action-desc">Mobilisation, partenariats et plaidoyer pour influencer les politiques et sécuriser le financement des actions.</p>
+        </div>
+        <div class="card-cta-wrap">
+          <a class="card-cta btn btn-primary" href="sections/Nos_actions/Plaidoyer.php" aria-label="En savoir plus sur Plaidoyer">En savoir plus</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="actions-footer">
+    <p class="actions-note">Pour chaque sous-rubrique, consultez la page dédiée pour les projets, résultats et documents associés.</p>
+    <a class="btn btn-secondary action-more" href="/sections/Nos_actions/acceuil.php" aria-label="En savoir plus sur nos actions">En savoir plus</a>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section id="actualites" class="section container"><h2>Actualités</h2></section>
+    <section id="mediatheque" class="section container"><h2>Médiathèque</h2></section>
+  </main>
+
+<!-- Footer (nouveau design) -->
+<footer class="site-footer modern-footer" id="site-footer">
+  <div class="footer-top container">
+    <div class="footer-grid">
+      <!-- Brand / About -->
+      <div class="f-col f-brand">
+        <a href="index.php" class="f-logo" aria-label="Arcad Santé Plus — accueil">Arcad <span>Santé</span> Plus</a>
+        <p class="f-desc">
+          Organisation engagée dans la santé communautaire, la prévention et le renforcement des capacités.
+          Nous travaillons avec les populations vulnérables pour un accès équitable aux soins.
+        </p>
+
+        <div class="f-quick">
+          <a class="btn btn-donate" href="#don" role="button" aria-label="Faire un don à Arcad Santé Plus">
+            Faire un don
+            <svg class="donate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"></path></svg>
+          </a>
+          <button class="f-cta ghost" id="openContactModal">Nous contacter</button>
+        </div>
+
+        <!-- mini quick sitemap (visible sur desktop) -->
+        <div class="f-mini-sitemap" aria-hidden="false" style="margin-top:12px;">
+          <strong style="font-size:13px;color:rgba(255,255,255,0.9);display:block;margin-bottom:6px;">Accès rapide</strong>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="#mot-president" class="f-mini-link">Mot du président</a>
+            <a href="#qui-sommes-nous" class="f-mini-link">Qui sommes-nous ?</a>
+            <a href="#chiffres-cles" class="f-mini-link">Chiffres clés</a>
+            <a href="#partenaires" class="f-mini-link">Partenaires</a>
+            <a href="#mediatheque" class="f-mini-link">Médiathèque</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- À propos / Institutionnel -->
+      <div class="f-col">
+        <h4>À propos</h4>
+        <ul class="f-links">
+          <li><a href="#mot-president">Mot du président</a></li>
+          <li><a href="#que-faisons-nous">Que faisons-nous&nbsp;?</a></li>
+          <li><a href="#success-stories">Success Stories</a></li>
+          <li><a href="#chiffres-cles">Chiffres clés</a></li>
+        </ul>
+      </div>
+
+      <!-- Programmes / Services -->
+      <div class="f-col">
+        <h4>Programmes & services</h4>
+        <ul class="f-links">
+          <li><a href="#prevention-soins">Prévention et soins</a></li>
+          <li><a href="#nos-sites">Nos sites</a></li>
+          <li><a href="#nos-services">Nos services</a></li>
+          <li><a href="#appui-technique">Appui technique</a></li>
+          <li><a href="#financements-domestiques">Financements domestiques</a></li>
+          <li><a href="#associations-partenaires">Associations partenaires</a></li>
+        </ul>
+      </div>
+
+      <!-- Partenaires / Médias / Liens utiles -->
+      <div class="f-col f-contact">
+        
+
+        <h4>Contact</h4>
+
+        <ul class="f-links" style="margin-bottom:12px;">
+          <li><a href="#partenaires-tech-fin"></a>Notre adresse: N’Tomikorobougou, face à l’INFSS Immeuble Tapa N’Diaye</li>
+          <li><a href="#cartographie-partenaires">Nos horaires: Lundi au vendredi : 9:00-17:00</a></li>
+          <li><a href="#osc-aoc">OSC AOC</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+
+        <h4 style="margin-top:10px;">Liens utiles</h4>
+        <ul class="f-links">
+          <li><a href="#actualites">Actualités</a></li>
+          <li><a href="#recherche">Recherche</a></li>
+          <li><a href="#plan-du-site">Plan du site</a></li>
+          <li><a href="#cookies">Politique de Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom -->
+  <div class="footer-bottom container">
+    <div class="copyright">&copy; <?= date('Y') ?> Arcad Santé Plus — Tous droits réservés</div>
+
+    <div class="footer-actions">
+      <div class="socials" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Facebook" class="social">fb</a>
+        <a href="#" aria-label="Twitter" class="social">tw</a>
+      </div>
+
+      <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
+    </div>
+  </div>
+</footer>
+
+<!-- Contact Modal (améliorée) -->
+<div id="footerContactModal" class="modal-overlay footer-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="footerModalTitle">
+  <div class="modal-window" role="document">
+    <button class="modal-close" id="footerModalClose" aria-label="Fermer">&times;</button>
+    <div class="modal-content">
+      <h2 id="footerModalTitle">Contactez-nous</h2>
+
+      <form id="footerContactForm" class="contact-form" novalidate>
+        <div class="field">
+          <label for="fc-name">Nom complet</label>
+          <input type="text" id="fc-name" name="name" required>
+        </div>
+
+        <div class="field">
+          <label for="fc-email">Email</label>
+          <input type="email" id="fc-email" name="email" required>
+        </div>
+
+        <div class="field">
+          <label for="fc-subject">Sujet</label>
+          <input type="text" id="fc-subject" name="subject" required>
+        </div>
+
+        <div class="field">
+          <label for="fc-message">Message</label>
+          <textarea id="fc-message" name="message" rows="6" required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Envoyer</button>
+          <button type="button" class="btn-ghost" id="footerModalCancel">Annuler</button>
+        </div>
+
+        <div id="footerFormMsg" class="form-msg" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
   <script src="java.js"></script>
 </body>
