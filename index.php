@@ -11,112 +11,11 @@ $current_page = 'home';
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Aller au contenu</a>
-
-  <!-- HEADER -->
-  <header class="site-header" role="banner" id="site-header">
-    <div class="container header-inner">
-      <!-- brand: logo (lien) + bouton Présentation -->
-      <div class="brand">
-        <a class="brand-link" href="index.php" title="Arcad Santé Plus — Accueil">
-          <img src="images/true_logo_Arcad-removebg-preview.png" alt="Arcad Santé Plus" class="brand-logo">
-        </a>
-
-        <button id="present-btn" class="present-btn" aria-controls="home-panel" aria-expanded="false">
-          Présentation
-        </button>
-      </div>
-
-      <!-- navigation desktop -->
-      <nav class="main-nav" role="navigation" aria-label="Navigation principale">
-  <ul class="nav-list">
-    <li class="nav-item"><a class="nav-link" href="sections/Actualités.php">Actualités</a></li>
-
-    <li class="nav-item nav-dropdown">
-      <button class="dropdown-toggle" aria-expanded="false" aria-controls="menu-nos-actions" aria-haspopup="true">
-        Nos Actions
-        <span class="caret" aria-hidden="true">▾</span>
-      </button>
-
-      <ul id="menu-nos-actions" class="dropdown-menu" role="menu" aria-label="Nos Actions">
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/nos_sites_et_services.php">Nos sites et nos services</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Renforcement_de_capacités.php">Renforcement de capacités</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Recherche_opérationnelle.php">Recherche opérationnelle</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Nos_actions/Plaidoyer.php">Plaidoyer</a></li>
-      </ul>
-    </li>
-
-    <li class="nav-item"><a class="nav-link" href="Recrutement.php">Recrutement</a></li>
-
-    <li class="nav-item nav-dropdown">
-      <button class="dropdown-toggle" aria-expanded="false" aria-controls="menu-mediatheque" aria-haspopup="true">
-        Médiathèque
-        <span class="caret" aria-hidden="true">▾</span>
-      </button>
-
-      <ul id="menu-mediatheque" class="dropdown-menu" role="menu" aria-label="Médiathèque">
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Médiathèque/Photothèque.php">Photothèque</a></li>
-        <li role="none"><a role="menuitem" class="dropdown-link" href="sections/Médiathèque/Vidéothèque.php">Vidéothèque</a></li>
-      </ul>
-    </li>
-
-    <li class="nav-item"><a class="nav-link" href="sections/nous_joindre.php">Nous joindre</a></li>
-  </ul>
-</nav>
-
-
-      <!-- actions: don + hamburger -->
-      <div class="header-actions">
-        <!-- Bouton Faire un don stylé -->
-<a class="btn btn-donate" href="#don" role="button" aria-label="Faire un don à Arcad Santé Plus">
-  Faire un don
-  <svg class="donate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path clip-rule="evenodd" fill-rule="evenodd"
-      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z">
-    </path>
-  </svg>
-</a>
-
-
-        <button id="hamburger" class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-nav">
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- mobile nav -->
-    <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
-      <ul class="mobile-list">
-        <li><a href="index.php">Accueil</a></li>
-        <li><a href="#actualites">Actualités</a></li>
-
-        <li>
-          <button class="mobile-toggle">Nos Actions ▾</button>
-          <ul class="mobile-sub">
-            <li><a href="#sites-services">Nos sites et nos services</a></li>
-            <li><a href="#renforcement">Renforcement de capacités</a></li>
-            <li><a href="#recherche">Recherche opérationnelle</a></li>
-            <li><a href="#plaidoyer">Plaidoyer</a></li>
-          </ul>
-        </li>
-
-        <li><a href="#recrutement">Recrutement</a></li>
-
-        <li>
-          <button class="mobile-toggle">Médiathèque ▾</button>
-          <ul class="mobile-sub">
-            <li><a href="#phototheque">Photothèque</a></li>
-            <li><a href="#videotheque">Vidéothèque</a></li>
-          </ul>
-        </li>
-
-        <li><a href="#contact">Nous joindre</a></li>
-        <li class="mobile-donate"><a class="btn btn-primary" href="#don">Faire un don</a></li>
-      </ul>
-    </div>
-  </header>
+  
+<?php
+$basePath = '';
+require __DIR__ . '/templates/header.php';
+?>
 
   <!-- MAIN -->
   <main id="main" role="main">
@@ -149,7 +48,9 @@ $current_page = 'home';
     </div>
 
     <div class="feat">
-      <svg class="feat-ic" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="action-ic" aria-hidden="true">
+          <img src="images/icon/accompagner.png" alt="description"style="width: 40px; height: 40px; object-fit: contain;" />
+          </div>
       <div class="feat-text"><strong>Accompagnement</strong><span>Soins & psychosocial</span></div>
     </div>
   </div>
@@ -157,14 +58,13 @@ $current_page = 'home';
   <!-- CTA -->
   <div class="hero-ctas">
   <a class="btn btn-donate" href="#don" role="button" aria-label="Faire un don à Arcad Santé Plus">
-  Faire un don
+  Dépistage
   <svg class="donate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path clip-rule="evenodd" fill-rule="evenodd"
       d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z">
     </path>
   </svg>
-</a>
-    <a class="btn btn-secondary" href="#contact">Nous joindre</a>
+</a>  
   </div>
 
   <!-- trust row: counters + partners -->
@@ -593,160 +493,13 @@ La direction exécutive rend compte annuellement à l’Assemblée générale et
   </div>
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <section id="actualites" class="section container"><h2>Actualités</h2></section>
     <section id="mediatheque" class="section container"><h2>Médiathèque</h2></section>
   </main>
 
-<!-- Footer (nouveau design) -->
-<footer class="site-footer modern-footer" id="site-footer">
-  <div class="footer-top container">
-    <div class="footer-grid">
-      <!-- Brand / About -->
-      <div class="f-col f-brand">
-        <a href="index.php" class="f-logo" aria-label="Arcad Santé Plus — accueil">Arcad <span>Santé</span> Plus</a>
-        <p class="f-desc">
-          Organisation engagée dans la santé communautaire, la prévention et le renforcement des capacités.
-          Nous travaillons avec les populations vulnérables pour un accès équitable aux soins.
-        </p>
-
-        <div class="f-quick">
-          <a class="btn btn-donate" href="#don" role="button" aria-label="Faire un don à Arcad Santé Plus">
-            Faire un don
-            <svg class="donate-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"></path></svg>
-          </a>
-          <button class="f-cta ghost" id="openContactModal">Nous contacter</button>
-        </div>
-
-        <!-- mini quick sitemap (visible sur desktop) -->
-        <div class="f-mini-sitemap" aria-hidden="false" style="margin-top:12px;">
-          <strong style="font-size:13px;color:rgba(255,255,255,0.9);display:block;margin-bottom:6px;">Accès rapide</strong>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a href="#mot-president" class="f-mini-link">Mot du président</a>
-            <a href="#qui-sommes-nous" class="f-mini-link">Qui sommes-nous ?</a>
-            <a href="#chiffres-cles" class="f-mini-link">Chiffres clés</a>
-            <a href="#partenaires" class="f-mini-link">Partenaires</a>
-            <a href="#mediatheque" class="f-mini-link">Médiathèque</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- À propos / Institutionnel -->
-      <div class="f-col">
-        <h4>À propos</h4>
-        <ul class="f-links">
-          <li><a href="#mot-president">Mot du président</a></li>
-          <li><a href="#que-faisons-nous">Que faisons-nous&nbsp;?</a></li>
-          <li><a href="#success-stories">Success Stories</a></li>
-          <li><a href="#chiffres-cles">Chiffres clés</a></li>
-        </ul>
-      </div>
-
-      <!-- Programmes / Services -->
-      <div class="f-col">
-        <h4>Programmes & services</h4>
-        <ul class="f-links">
-          <li><a href="#prevention-soins">Prévention et soins</a></li>
-          <li><a href="#nos-sites">Nos sites</a></li>
-          <li><a href="#nos-services">Nos services</a></li>
-          <li><a href="#appui-technique">Appui technique</a></li>
-          <li><a href="#financements-domestiques">Financements domestiques</a></li>
-          <li><a href="#associations-partenaires">Associations partenaires</a></li>
-        </ul>
-      </div>
-
-      <!-- Partenaires / Médias / Liens utiles -->
-      <div class="f-col f-contact">
-        
-
-        <h4>Contact</h4>
-
-        <ul class="f-links" style="margin-bottom:12px;">
-          <li><a href="#partenaires-tech-fin"></a>Notre adresse: N’Tomikorobougou, face à l’INFSS Immeuble Tapa N’Diaye</li>
-          <li><a href="#cartographie-partenaires">Nos horaires: Lundi au vendredi : 9:00-17:00</a></li>
-          <li><a href="#osc-aoc">OSC AOC</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-
-        <h4 style="margin-top:10px;">Liens utiles</h4>
-        <ul class="f-links">
-          <li><a href="#actualites">Actualités</a></li>
-          <li><a href="#recherche">Recherche</a></li>
-          <li><a href="#plan-du-site">Plan du site</a></li>
-          <li><a href="#cookies">Politique de Cookies</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- bottom -->
-  <div class="footer-bottom container">
-    <div class="copyright">&copy; <?= date('Y') ?> Arcad Santé Plus — Tous droits réservés</div>
-
-    <div class="footer-actions">
-      <div class="socials" aria-label="Réseaux sociaux">
-        <a href="#" aria-label="Facebook" class="social">fb</a>
-        <a href="#" aria-label="Twitter" class="social">tw</a>
-      </div>
-
-      <button id="backToTop" class="back-to-top" aria-label="Retour en haut">↑</button>
-    </div>
-  </div>
-</footer>
-
-<!-- Contact Modal (améliorée) -->
-<div id="footerContactModal" class="modal-overlay footer-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="footerModalTitle">
-  <div class="modal-window" role="document">
-    <button class="modal-close" id="footerModalClose" aria-label="Fermer">&times;</button>
-    <div class="modal-content">
-      <h2 id="footerModalTitle">Contactez-nous</h2>
-
-      <form id="footerContactForm" class="contact-form" novalidate>
-        <div class="field">
-          <label for="fc-name">Nom complet</label>
-          <input type="text" id="fc-name" name="name" required>
-        </div>
-
-        <div class="field">
-          <label for="fc-email">Email</label>
-          <input type="email" id="fc-email" name="email" required>
-        </div>
-
-        <div class="field">
-          <label for="fc-subject">Sujet</label>
-          <input type="text" id="fc-subject" name="subject" required>
-        </div>
-
-        <div class="field">
-          <label for="fc-message">Message</label>
-          <textarea id="fc-message" name="message" rows="6" required></textarea>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-submit">Envoyer</button>
-          <button type="button" class="btn-ghost" id="footerModalCancel">Annuler</button>
-        </div>
-
-        <div id="footerFormMsg" class="form-msg" aria-live="polite"></div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-  <script src="java.js"></script>
+  <?php
+require __DIR__ . '/templates/footer.php';
+?>
+<script src="java.js"></script>
 </body>
 </html>

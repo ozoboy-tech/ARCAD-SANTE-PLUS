@@ -173,7 +173,6 @@ $current_page = 'recherche';
     <div class="container header-inner">
       <div class="brand">
         <a href="index.php" class="brand-logo" aria-label="Arcad Santé Plus — Accueil">Arcad <span style="color:var(--brand-700)">Santé</span> Plus</a>
-        <button class="present-btn" id="presentBtn" aria-controls="home-panel" aria-expanded="false">Présentation</button>
       </div>
 
       <nav class="main-nav" role="navigation" aria-label="Navigation principale">

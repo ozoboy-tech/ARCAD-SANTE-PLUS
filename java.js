@@ -591,3 +591,242 @@ document.querySelectorAll('.dropdown-toggle').forEach(btn => {
     cards.forEach(c => c.classList.add('in-view'));
   }
 })();
+
+
+
+
+
+
+
+/* Footer contact modal - accessible, focus-trap, validation & simulated send */
+(function () {
+  const modal = document.getElementById('footerContactModal');
+  if (!modal) return;
+  const closeBtn = document.getElementById('footerModalClose');
+  const cancelBtn = document.getElementById('footerModalCancel');
+  const openBtns = document.querySelectorAll('#openContactModal, .open-footer-contact');
+  const form = document.getElementById('footerContactForm');
+  const formMsg = document.getElementById('footerFormMsg');
+  let lastFocus = null;
+
+  // util: list of focusable selectors
+  const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+  function openModal() {
+    lastFocus = document.activeElement;
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    // give it a tick then focus first input
+    setTimeout(() => {
+      const first = modal.querySelector('input, textarea, button');
+      first?.focus();
+    }, 140);
+    // add trap handler
+    document.addEventListener('keydown', trapHandler);
+  }
+
+  function closeModal() {
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // cleanup
+    formMsg.textContent = '';
+    form.reset();
+    lastFocus?.focus?.();
+    document.removeEventListener('keydown', trapHandler);
+  }
+
+  // open triggers
+  openBtns.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); openModal(); }));
+
+  // overlay click closes when clicking overlay itself
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // close buttons
+  if (closeBtn) closeBtn.addEventListener('click', () => closeModal());
+  if (cancelBtn) cancelBtn.addEventListener('click', () => closeModal());
+
+  // ESC to close + basic focus trap
+  function trapHandler(e) {
+    if (e.key === 'Escape') {
+      if (modal.getAttribute('aria-hidden') === 'false') {
+        e.preventDefault();
+        closeModal();
+      }
+      return;
+    }
+    if (e.key === 'Tab' && modal.getAttribute('aria-hidden') === 'false') {
+      // focus trap
+      const focusables = Array.from(modal.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
+      if (focusables.length === 0) { e.preventDefault(); return; }
+      const idx = focusables.indexOf(document.activeElement);
+      if (e.shiftKey) {
+        // shift + tab
+        if (idx === 0) {
+          focusables[focusables.length - 1].focus();
+          e.preventDefault();
+        }
+      } else {
+        if (idx === focusables.length - 1) {
+          focusables[0].focus();
+          e.preventDefault();
+        }
+      }
+    }
+  }
+
+  // basic email test
+  function validEmail(email) {
+    return /^\S+@\S+\.\S+$/.test(email);
+  }
+
+  // form submit simulation
+  if (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      formMsg.classList.remove('error');
+      formMsg.textContent = '';
+
+      const name = (form.querySelector('#fc-name')?.value || '').trim();
+      const email = (form.querySelector('#fc-email')?.value || '').trim();
+      const subject = (form.querySelector('#fc-subject')?.value || '').trim();
+      const message = (form.querySelector('#fc-message')?.value || '').trim();
+      const submitBtn = form.querySelector('.btn-submit');
+
+      // validation
+      if (!name || !email || !subject || !message) {
+        formMsg.classList.add('error');
+        formMsg.textContent = 'Veuillez remplir tous les champs.';
+        (form.querySelector('#fc-name') || form.querySelector('#fc-email')).focus();
+        return;
+      }
+      if (!validEmail(email)) {
+        formMsg.classList.add('error');
+        formMsg.textContent = 'Veuillez fournir une adresse email valide.';
+        form.querySelector('#fc-email').focus();
+        return;
+      }
+
+      // disable & simulate send
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Envoi…';
+      }
+      formMsg.classList.remove('error');
+      formMsg.textContent = 'Envoi en cours…';
+
+      setTimeout(() => {
+        // simulate success
+        formMsg.classList.remove('error');
+        formMsg.textContent = 'Merci — votre message a bien été envoyé.';
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Envoyer'; }
+        // auto-close after a short pause
+        setTimeout(() => closeModal(), 1200);
+      }, 900);
+    });
+  }
+
+  // accessibility: ensure modal starts aria-hidden true
+  if (!modal.hasAttribute('aria-hidden')) modal.setAttribute('aria-hidden', 'true');
+})();
+
+
+
+
+
+
+// Ouvre la modale du footer après scroll si l'utilisateur a cliqué "Nous joindre"
+(function () {
+  // s'exécute après le chargement DOM
+  document.addEventListener('DOMContentLoaded', () => {
+    // cible les ancres qui pointent vers "#footer" (ton bouton)
+    const triggers = Array.from(document.querySelectorAll('a[href="#footer"], a[href="#site-footer"]'));
+    if (!triggers.length) return;
+
+    // footer cible (priorité id site-footer)
+    const footerEl = document.getElementById('site-footer') || document.querySelector('footer');
+    if (!footerEl) return;
+
+    // élément d'ouverture existant (le bouton dans le footer qui ouvre la modale)
+    const openBtn = document.getElementById('openContactModal');
+    const footerModal = document.getElementById('footerContactModal');
+
+    let pendingOpen = false;
+    let observer = null;
+
+    function openFooterModalOnce() {
+      // n'ouvre qu'une fois si pendingOpen vrai
+      if (!pendingOpen) return;
+      pendingOpen = false;
+      // si un bouton existant ouvre déjà la modale, on le déclenche (réutilise la logique existante)
+      if (openBtn) {
+        openBtn.click();
+        return;
+      }
+      // fallback : ouvrir directement la modale si présente
+      if (footerModal) {
+        footerModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // focus sur le premier champ après petit délai
+        setTimeout(() => footerModal.querySelector('input, textarea, button')?.focus(), 120);
+        return;
+      }
+    }
+
+    function onTriggerClick(e) {
+      e.preventDefault();
+      // marque que l'on souhaite ouvrir la modale quand le footer sera visible
+      pendingOpen = true;
+
+      // scroller vers le footer
+      footerEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // si footer déjà visible (dans la fenêtre), ouvre tout de suite
+      const rect = footerEl.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        // petit délai pour laisser le smooth-scroll finir visuellement
+        setTimeout(openFooterModalOnce, 160);
+        return;
+      }
+
+      // sinon observe le footer jusqu'à ce qu'il soit visible, puis ouvre la modale (une seule fois)
+      if ('IntersectionObserver' in window) {
+        if (observer) observer.disconnect();
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && pendingOpen) {
+              // petit délai pour s'assurer du rendu
+              setTimeout(() => openFooterModalOnce(), 80);
+              if (observer) { observer.disconnect(); observer = null; }
+            }
+          });
+        }, { threshold: 0.2 });
+        observer.observe(footerEl);
+      } else {
+        // fallback : ouvrir après délai si IntersectionObserver indisponible
+        setTimeout(openFooterModalOnce, 700);
+      }
+    }
+
+    // attache handler aux triggers (boutons / liens)
+    triggers.forEach(t => t.addEventListener('click', onTriggerClick));
+
+    // si l'utilisateur clique ailleurs, annuler la demande d'ouverture
+    document.addEventListener('click', (e) => {
+      const isTrigger = e.target.closest('a[href="#footer"], a[href="#site-footer"]');
+      if (!isTrigger && pendingOpen) {
+        pendingOpen = false;
+        if (observer) { observer.disconnect(); observer = null; }
+      }
+    });
+
+    // ESC annule la demande si pressé avant ouverture
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pendingOpen) {
+        pendingOpen = false;
+        if (observer) { observer.disconnect(); observer = null; }
+      }
+    });
+  });
+})();

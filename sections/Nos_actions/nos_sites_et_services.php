@@ -123,10 +123,9 @@ $current_page = 'sites_services';
     <div class="container header-inner">
       <div class="brand">
         <a href="index.php" class="brand-logo" aria-label="Arcad Santé Plus — Accueil">Arcad <span style="color:var(--brand-700)">Santé</span> Plus</a>
-        <button class="present-btn" id="presentBtn" aria-controls="home-panel" aria-expanded="false">Présentation</button>
       </div>
 
-      <nav class="main-nav" role="navigation" aria-label="Navigation principale">
+/  <nav class="main-nav" role="navigation" aria-label="Navigation principale">
         <ul class="nav-list">
           <li class="nav-item"><a href="index.php">Accueil</a></li>
           <li class="nav-item"><a href="index.php#nos-actions">Nos actions</a></li>
@@ -137,11 +136,7 @@ $current_page = 'sites_services';
 
       <div class="header-actions">
         <a class="btn btn-primary" href="index.php#don">Faire un don</a>
-        <button id="hamburger" class="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </button>
+
       </div>
     </div>
 
@@ -239,7 +234,7 @@ $current_page = 'sites_services';
                 </div>
               </div>
             </div>
-
+ 
             <div style="height:12px"></div>
             <div class="map-placeholder" aria-hidden="true">Carte interactive (à intégrer) — emplacement des sites</div>
           </div>

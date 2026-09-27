@@ -273,7 +273,7 @@ $current_page = 'renforcement';
         <a href="../../index.php" class="brand-logo" aria-label="Arcad Santé Plus — Accueil">Arcad <span style="color:var(--brand-700)">Santé</span> Plus</a>
       </div>
 
-      <nav class="main-nav" role="navigation" aria-label="Navigation principale">
+     /21 <nav class="main-nav" role="navigation" aria-label="Navigation principale">
         <ul class="nav-list">
           <li class="nav-item"><a href="../../index.php">Accueil</a></li>
           <li class="nav-item"><a href="../Actualités.php">Actualités</a></li>
