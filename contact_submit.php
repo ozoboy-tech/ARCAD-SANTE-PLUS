@@ -39,6 +39,14 @@ function textLength(string $value): int
 }
 
 
+function submittedText(string $field): string
+{
+    $value = $_POST[$field] ?? '';
+
+    return is_string($value) ? trim($value) : '';
+}
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,9 +74,11 @@ if (
 |--------------------------------------------------------------------------
 */
 
-$honeypot = trim(
-    (string) ($_POST['website'] ?? '')
-);
+$honeypot = submittedText('website');
+
+if (isset($_POST['website']) && !is_string($_POST['website'])) {
+    $honeypot = 'invalid';
+}
 
 
 if ($honeypot !== '') {
@@ -149,24 +159,16 @@ if (
 |--------------------------------------------------------------------------
 */
 
-$name = trim(
-    (string) ($_POST['name'] ?? '')
-);
+$name = submittedText('name');
 
 
-$email = trim(
-    (string) ($_POST['email'] ?? '')
-);
+$email = submittedText('email');
 
 
-$subject = trim(
-    (string) ($_POST['subject'] ?? '')
-);
+$subject = submittedText('subject');
 
 
-$message = trim(
-    (string) ($_POST['message'] ?? '')
-);
+$message = submittedText('message');
 
 
 
